@@ -3,7 +3,6 @@ var score = 0;
 var timeLeft = 60;
 var currentQuestionIndex = 0;
 
-
 //DOM elements
 var startScreenEl = document.querySelector('#start-screen');
 var startBtn = document.querySelector('#start');
@@ -16,9 +15,6 @@ var finalScoreEl = document.querySelector('#final-score');
 var stopTimer = false;
 var submitBtn = document.querySelector('#submit');
 var initialsEl = document.querySelector('#initials')
-
-
-
 
 //start quiz on button press
 function startGame() {
@@ -54,7 +50,6 @@ var timeInterval = setInterval(function() {
 }, 1000);
 }
 
-
 //new function to set next question
 function setNextQuestion() {
 
@@ -78,7 +73,6 @@ currentQuestion.o.forEach(function(choice, i) {
     // attach click event listener to each choice
     // questionClick = choiceOption.onclick;
     choiceOption.onclick = checkAnswer;
-
 
     choicesEl.appendChild(choiceOption);
 });
@@ -114,7 +108,6 @@ if (currentQuestionIndex === questions.length) {
 }
 }
 
-
 //display score
  function displayMessage() {
     stopTimer = true;
@@ -123,12 +116,9 @@ if (currentQuestionIndex === questions.length) {
     finalScoreEl.textContent = score * timeLeft;
  }
 
-
-
 function saveHighScore() {
 
 var initials = initialsEl.value.trim();
-
 
 if (!initials) {
     alert('Must enter valid initials');
@@ -151,16 +141,11 @@ highscoreArry.push(player);
 localStorage.setItem('highscore', JSON.stringify(highscoreArry));
 
 window.location.href = 'highscores.html'
-
 }
-
-
-
 
 //even listener
 startBtn.addEventListener('click', startGame)
 submitBtn.addEventListener('click', saveHighScore)
-
 
 var questions = [
     {

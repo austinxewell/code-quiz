@@ -1,7 +1,6 @@
 var highscoreArry = JSON.parse(localStorage.getItem('highscore'));
 var olEl = document.querySelector('#highscores')
 var clearBtn = document.querySelector('#clear')
-// var liEl = document.createElement('li')
 
 for (var i = 0; i < highscoreArry.length; i++) {
 
@@ -12,15 +11,11 @@ for (var i = 0; i < highscoreArry.length; i++) {
 
     liEl.textContent = 'Player Initials: ' + initials + '  |   Player Score: ' + score;
     
-    // 'score = ' + score + ' Player ' + initials;
-    
     olEl.appendChild(liEl);
 }
 
-
 function clearScores() {
     
-
     console.log('test')
     window.localStorage.removeItem('highscore');
     window.location.reload();
