@@ -11,7 +11,8 @@ var questionScreenEl = document.querySelector('#questions')
 var timerEl = document.querySelector('#time')
 var choicesEl = document.querySelector('#choices')
 var feedbackEl = document.querySelector('#feedback')
-
+var endScreenEl = document.querySelector('#end-screen')
+var finalScoreEl = document.querySelector('#final-score')
 
 //start quiz on button press
 function startGame() {
@@ -19,22 +20,27 @@ function startGame() {
 
 //hide start screen
 startScreenEl.classList.add('hide');
+
 //make question screen visable
 questionScreenEl.classList.remove('hide');
+
 //start timer on 60 seconds
 var timeInterval = setInterval(function() {
+    // if (timeLeft === 1) {
+    //     timerEl.textContent = timeLeft + ' second remaining';
+    //     timeLeft--;
+    //     setNextQuestion();
+    
+    // } else 
+    
     if (timeLeft > 1) {
         timerEl.textContent = timeLeft + ' seconds remaining';
         timeLeft--;
         setNextQuestion();
-    } else if (timeLeft === 1) {
-        timerEl.textContent = timeLeft + ' second remaining';
-        timeLeft--;
-        setNextQuestion();
+        
     } else {
         timerEl.textContent = '';
         clearInterval(timeInterval);
-        displayMessage();
     }
 }, 1000);
 }
@@ -42,7 +48,8 @@ var timeInterval = setInterval(function() {
 
 //new function to set next question
 function setNextQuestion() {
-//pull up first question
+
+    //pull up first question
     //question title
 var currentQuestion = questions[currentQuestionIndex];
 var titleEl = document.querySelector('#question-title');
@@ -68,30 +75,37 @@ currentQuestion.o.forEach(function(choice, i) {
 });
 }
 
-
-
-
 function checkAnswer() {
 if (this.value !== questions[currentQuestionIndex].a) {
-    timeLeft -= 15;
+    timeLeft -= 25;
     if (timeLeft < 0) {
     timeLeft = 0;
     
     }
 
     timerEl.textContent.timeLeft;
-    console.log('incorrect');
 
-
-    feedbackEl.classList.remove('hide')
     feedbackEl.textContent = 'Incorrect!';
 } else {
-    feedbackEl.classList.remove('hide')
     feedbackEl.textContent = 'Correct!';
-    score ++;
+    score ++
     console.log(score)
-
 }
+
+feedbackEl.setAttribute('class', 'feedback');
+setTimeout(function() {
+    feedbackEl.setAttribute('class', 'feedback hide');
+}, 1000);
+
+currentQuestionIndex ++;
+
+if (currentQuestionIndex === questions.length) {
+    displayMessage();
+
+} else {
+    setNextQuestion();
+}
+
 
 }
 // event listener for button responce
@@ -107,9 +121,20 @@ if (this.value !== questions[currentQuestionIndex].a) {
 
 //display score
  function displayMessage() {
-     console.log(prompt('Please Enter your initials'));
+    questionScreenEl.classList.add('hide');
+    endScreenEl.classList.remove('hide');
+    finalScoreEl.textContent = score * timeLeft;
+    timeLeft = 0;
 
  }
+
+
+
+
+
+
+
+
 
 
 //set items
