@@ -14,6 +14,8 @@ var feedbackEl = document.querySelector('#feedback');
 var endScreenEl = document.querySelector('#end-screen');
 var finalScoreEl = document.querySelector('#final-score');
 var stopTimer = false;
+var submitBtn = document.querySelector('#submit');
+var initialsEl = document.querySelector('#initials')
 
 
 
@@ -85,9 +87,7 @@ if (this.value !== questions[currentQuestionIndex].a) {
     timeLeft -= 25;
     if (timeLeft < 0) {
     timeLeft = 0;
-    
     }
-
     timerEl.textContent.timeLeft;
 
     feedbackEl.textContent = 'Incorrect!';
@@ -113,13 +113,7 @@ if (currentQuestionIndex === questions.length) {
 }
 
 
-// event listener for button responce
 
-// verify if correct/incorrect
-
-//if correct +1 to score and display correct font
-
-//else incorrect do not at to score, -15 seconds from timer, display wrong font
 
 
 
@@ -130,16 +124,21 @@ if (currentQuestionIndex === questions.length) {
     questionScreenEl.classList.add('hide');
     endScreenEl.classList.remove('hide');
     finalScoreEl.textContent = score * timeLeft;
-    
-    saveHighScore()
  }
 
 
 
 function saveHighScore() {
-    // console.log(score * timeLeft)
-localStorage.getItem(score * timeLeft);
+
+var initials = initialsEl.value.trim();
+
+      console.log(score * timeLeft);
+localStorage.getItem('score', score * timeLeft);
+localStorage.getItem('initials', initials);
+
+
 localStorage.setItem('score', score * timeLeft);
+localStorage.setItem('initials', initials);
 
 }
 
@@ -148,6 +147,7 @@ localStorage.setItem('score', score * timeLeft);
 
 //even listener
 startBtn.addEventListener('click', startGame)
+submitBtn.addEventListener('click', saveHighScore)
 
 
 var questions = [
