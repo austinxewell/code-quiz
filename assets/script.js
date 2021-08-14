@@ -115,11 +115,6 @@ if (currentQuestionIndex === questions.length) {
 }
 
 
-
-
-
-
-
 //display score
  function displayMessage() {
     stopTimer = true;
@@ -144,16 +139,18 @@ var player = {
     score: score * timeLeft,
     initials: initials,
 }
-      console.log(score * timeLeft);
-var highscoreArry = localStorage.getItem('highscore') || []
+    //   console.log(score * timeLeft);
+var highscoreArry = JSON.parse(localStorage.getItem('highscore')) || []
 
+// var highscoreString = JSON.parse(highscoreArry);
+console.log(highscoreArry)
 highscoreArry.push(player);
 
 // localStorage.getItem('initials', initials);
 
 localStorage.setItem('highscore', JSON.stringify(highscoreArry));
 
-//window.location.href = 'highscores.html'
+window.location.href = 'highscores.html'
 
 }
 
