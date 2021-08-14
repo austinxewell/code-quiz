@@ -5,14 +5,17 @@ var currentQuestionIndex = 0;
 
 
 //DOM elements
-var startScreenEl = document.querySelector('#start-screen')
-var startBtn = document.querySelector('#start')
-var questionScreenEl = document.querySelector('#questions')
-var timerEl = document.querySelector('#time')
-var choicesEl = document.querySelector('#choices')
-var feedbackEl = document.querySelector('#feedback')
-var endScreenEl = document.querySelector('#end-screen')
-var finalScoreEl = document.querySelector('#final-score')
+var startScreenEl = document.querySelector('#start-screen');
+var startBtn = document.querySelector('#start');
+var questionScreenEl = document.querySelector('#questions');
+var timerEl = document.querySelector('#time');
+var choicesEl = document.querySelector('#choices');
+var feedbackEl = document.querySelector('#feedback');
+var endScreenEl = document.querySelector('#end-screen');
+var finalScoreEl = document.querySelector('#final-score');
+var stopTimer = false;
+
+
 
 //start quiz on button press
 function startGame() {
@@ -32,7 +35,9 @@ var timeInterval = setInterval(function() {
     //     setNextQuestion();
     
     // } else 
-    
+    if (stopTimer)
+        return;
+
     if (timeLeft > 1) {
         timerEl.textContent = timeLeft + ' seconds remaining';
         timeLeft--;
@@ -89,7 +94,7 @@ if (this.value !== questions[currentQuestionIndex].a) {
 } else {
     feedbackEl.textContent = 'Correct!';
     score ++
-    console.log(score)
+    // console.log(score)
 }
 
 feedbackEl.setAttribute('class', 'feedback');
@@ -105,9 +110,9 @@ if (currentQuestionIndex === questions.length) {
 } else {
     setNextQuestion();
 }
-
-
 }
+
+
 // event listener for button responce
 
 // verify if correct/incorrect
@@ -121,23 +126,25 @@ if (currentQuestionIndex === questions.length) {
 
 //display score
  function displayMessage() {
+    stopTimer = true;
     questionScreenEl.classList.add('hide');
     endScreenEl.classList.remove('hide');
     finalScoreEl.textContent = score * timeLeft;
-    timeLeft = 0;
-
+    
+    saveHighScore()
  }
 
 
 
+function saveHighScore() {
+    // console.log(score * timeLeft)
+localStorage.getItem(score * timeLeft);
+localStorage.setItem('score', score * timeLeft);
+
+}
 
 
 
-
-
-
-
-//set items
 
 //even listener
 startBtn.addEventListener('click', startGame)
