@@ -9,6 +9,8 @@ var startScreenEl = document.querySelector('#start-screen')
 var startBtn = document.querySelector('#start')
 var questionScreenEl = document.querySelector('#questions')
 var timerEl = document.querySelector('#time')
+var choicesEl = document.querySelector('#choices')
+var feedbackEl = document.querySelector('#feedback')
 
 
 //start quiz on button press
@@ -40,30 +42,73 @@ var timeInterval = setInterval(function() {
 
 //new function to set next question
 function setNextQuestion() {
-    //pull up first question
+//pull up first question
+    //question title
 var currentQuestion = questions[currentQuestionIndex];
 var titleEl = document.querySelector('#question-title');
 titleEl.textContent = currentQuestion.q;
+ 
+choicesEl.innerHTML = "";
+
+//set question options
+currentQuestion.o.forEach(function(choice, i) {
+
+    var choiceOption = document.createElement("button");
+    choiceOption.setAttribute("class", "choice");
+    choiceOption.setAttribute("value", choice);
+
+    choiceOption.textContent = i + 1 + ". " + choice;
+
+    // attach click event listener to each choice
+    // questionClick = choiceOption.onclick;
+    choiceOption.onclick = checkAnswer;
+
+
+    choicesEl.appendChild(choiceOption);
+});
+}
 
 
 
 
-// for (var i = 0; i < questions.length; i++) {
-// }
+function checkAnswer() {
+if (this.value !== questions[currentQuestionIndex].a) {
+    timeLeft -= 15;
+    if (timeLeft < 0) {
+    timeLeft = 0;
+    
+    }
+
+    timerEl.textContent.timeLeft;
+    console.log('incorrect');
 
 
-
-    //display if answer is correct or wrong
-
-    //add to score for correct answer
+    feedbackEl.classList.remove('hide')
+    feedbackEl.textContent = 'Incorrect!';
+} else {
+    feedbackEl.classList.remove('hide')
+    feedbackEl.textContent = 'Correct!';
+    score ++;
+    console.log(score)
 
 }
+
+}
+// event listener for button responce
+
+// verify if correct/incorrect
+
+//if correct +1 to score and display correct font
+
+//else incorrect do not at to score, -15 seconds from timer, display wrong font
+
 
 
 
 //display score
  function displayMessage() {
-     console.log('display score')
+     console.log(prompt('Please Enter your initials'));
+
  }
 
 
