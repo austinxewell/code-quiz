@@ -19,6 +19,7 @@ var initialsEl = document.querySelector('#initials')
 
 
 
+
 //start quiz on button press
 function startGame() {
 //console.log('test')
@@ -31,12 +32,7 @@ questionScreenEl.classList.remove('hide');
 
 //start timer on 60 seconds
 var timeInterval = setInterval(function() {
-    // if (timeLeft === 1) {
-    //     timerEl.textContent = timeLeft + ' second remaining';
-    //     timeLeft--;
-    //     setNextQuestion();
-    
-    // } else 
+     
     if (stopTimer)
         return;
 
@@ -44,10 +40,16 @@ var timeInterval = setInterval(function() {
         timerEl.textContent = timeLeft + ' seconds remaining';
         timeLeft--;
         setNextQuestion();
-        
+    }
+
+    else if (timeLeft == 1) {
+        timerEl.textContent = timeLeft + ' second remaining';
+        timeLeft--;
+    
     } else {
         timerEl.textContent = '';
         clearInterval(timeInterval);
+        displayMessage();
     }
 }, 1000);
 }
@@ -132,13 +134,26 @@ function saveHighScore() {
 
 var initials = initialsEl.value.trim();
 
+
+if (!initials) {
+    alert('Must enter valid initials');
+    return;
+}
+
+var player = {
+    score: score * timeLeft,
+    initials: initials,
+}
       console.log(score * timeLeft);
-localStorage.getItem('score', score * timeLeft);
-localStorage.getItem('initials', initials);
+var highscoreArry = localStorage.getItem('highscore') || []
 
+highscoreArry.push(player);
 
-localStorage.setItem('score', score * timeLeft);
-localStorage.setItem('initials', initials);
+// localStorage.getItem('initials', initials);
+
+localStorage.setItem('highscore', JSON.stringify(highscoreArry));
+
+//window.location.href = 'highscores.html'
 
 }
 
